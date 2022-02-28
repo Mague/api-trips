@@ -30,7 +30,6 @@ api.get("/", async function(req, res) {
     return res.status(200).json(data)
 });
 api.post("/", async(req, res) => {
-    console.log("--------LLEGO EN POST--------")
     let body = req.body
 
     let model = new Trip();
@@ -98,12 +97,7 @@ api.post("/", async(req, res) => {
             coordinates: [dataBoundingBox.bottomRight.lat, dataBoundingBox.bottomRight.lon],
         },
     ];
-    console.log("================DATABOUNDINGBOX====================");
-    console.log(dataBoundingBox);
-    console.log('====================================');
-    console.log("================finalDataBoundingBox====================");
-    console.log(finalDataBoundingBox);
-    console.log('====================================');
+
     let trip = {
         start: {
             location: {

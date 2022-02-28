@@ -26,9 +26,7 @@ class Trip {
                 overspeedsCount: overspeedsCount,
                 boundingBox: [...boundingBox],
             };
-            console.log("====================================");
-            console.log(trip);
-            console.log("====================================");
+
             let result = await this.model.create(trip, function(err, result) {
                 if (err) {
                     return resolve({ err: err });
@@ -48,12 +46,10 @@ class Trip {
             if (offset != undefined) {
                 opts.skip = parseInt(offset);
             }
-            console.table(opts)
-            console.log(filters);
+
             this.model
                 .find(filters, null, opts)
                 .exec(function(err, docs) {
-                    console.log(docs);
                     if (err) {
                         return resolve({ err: err });
                     }

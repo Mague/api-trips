@@ -9,7 +9,8 @@ const bodyParser = require('body-parser')
 
 const app = express();
 const server = http.createServer(app);
-const { HTTP_PORT = 8080 } = process.env;
+const { HTTP_PORT = 3000 } = process.env;
+const { HTTP_PORT_TEST = 3001 } = process.env;
 app.use(
     bodyParser.urlencoded({
         parameterLimit: 10000,
@@ -29,9 +30,10 @@ app.use("/api/trips/v1", controllers.trips);
 
 function start() {
     return new Promise((resolve, reject) => {
+        let port = (process.env.NODE_ENV == "test") ? HTTP_PORT_TEST : HTTP_PORT;
         server.listen(HTTP_PORT, async(err) => {
             if (err) return reject(err);
-            console.log(`server listener running: http://localhost:${HTTP_PORT}`);
+            console.log(`server listener running: http://localhost:${port}`);
             await db.init();
             resolve();
         });
@@ -40,6 +42,7 @@ function start() {
 
 function close() {
     server.close();
+    process.exit(0);
 }
 
 module.exports = { start, close, app };

@@ -4,8 +4,8 @@ const Trip = require("./trip")
 dotenv.config()
 
 const {
-    MONGODB_URL = "mongodb://localhost:27017/trips",
-        MONGODB_URL_TEST = "mongodb://localhost:27017/test",
+    MONGODB_URL = `mongodb://mongo/trips`,
+        MONGODB_URL_TEST = "mongodb://mongo/test_trips",
         NODE_ENV,
 } = process.env;
 
@@ -16,9 +16,6 @@ const init = () => {
         //useCreateIndex: true,
     };
     const url = NODE_ENV == "test" ? MONGODB_URL_TEST : MONGODB_URL;
-    console.log('====================================');
-    console.log(url);
-    console.log('====================================');
     return mongoose.connect(url, options);
 };
 
