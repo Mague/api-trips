@@ -18,6 +18,7 @@ docker-compose up
 ## Construido con 🛠️
 
 * [Node.js](https://nodejs.org/)
+* [Express.js](https://expressjs.com/)
 * [MongoDB](https://www.mongodb.com/)
 * [Docker](https://www.docker.com/)
 
