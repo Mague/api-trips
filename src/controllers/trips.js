@@ -39,7 +39,22 @@ api.post("/", async(req, res) => {
             return element;
         }
     });
-
+    if (readings.length < 5) {
+        return res.status(409).json({
+            "msg": "min 5 readings required",
+        });
+    }
+    let overspeedsCount = 0;
+    readings.map((element, index) => {
+        console.log(`Speed: ${element.speed}, speedLimit:${element.speedLimit}`)
+        if (element.speed >= element.speedLimit) {
+            if (index == 0) {
+                overspeedsCount += 1;
+            } else if (readings[index - 1].speed < readings[index - 1].speedLimit) {
+                overspeedsCount += 1;
+            }
+        }
+    })
     let start = Math.min.apply(Math, readings.map((element) => element.time));
     let end = Math.max.apply(Math, readings.map((element) => element.time));
     let readingStart = readings.find((element) => {
@@ -80,16 +95,11 @@ api.post("/", async(req, res) => {
             lon: readingEnd.location.lon,
         }
     ]);
-    let finalDataBoundingBox = [
-        /* [-33.580462, -70.567177],
-                        [-33.580432, -70.567147],
-                        [-33.580432, -70.567147],
-                        [-33.580433, -70.567144], */
-
-        {
+    let finalDataBoundingBox = [{
             type: "Point",
             coordinates: [
-                (dataBoundingBox.topLeft.lat, dataBoundingBox.topLeft.lon),
+                dataBoundingBox.topLeft.lat,
+                dataBoundingBox.topLeft.lon
             ],
         },
         {
@@ -117,7 +127,7 @@ api.post("/", async(req, res) => {
         },
         distance: kilometers,
         duration: duration,
-        overspeedsCount: 1,
+        overspeedsCount: overspeedsCount,
         boundingBox: finalDataBoundingBox,
     };
 

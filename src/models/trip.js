@@ -31,7 +31,33 @@ class Trip {
                 if (err) {
                     return resolve({ err: err });
                 }
-                return resolve({ result: result });
+                let newBoundingBox = result.boundingBox.map((b) => {
+                    let bounding = {
+                        lat: b.coordinates[0],
+                        lon: b.coordinates[1],
+                    };
+                    return bounding;
+                });
+                let newTrip = {
+                    id: result._id,
+                    start: {
+                        lat: result.start.lat,
+                        lon: result.start.lon,
+                        address: result.start.address,
+                        time: result.start.time,
+                    },
+                    end: {
+                        lat: result.end.lat,
+                        lon: result.end.lon,
+                        address: result.end.address,
+                        time: result.end.time,
+                    },
+                    distance: result.distance,
+                    duration: result.duration,
+                    overspeedsCount: result.overspeedsCount,
+                    boundingBox: newBoundingBox,
+                };
+                return resolve({ result: newTrip });
             });
         });
     }
@@ -54,6 +80,16 @@ class Trip {
                         return resolve({ err: err });
                     }
                     let data = docs.map((element) => {
+                        let newBoundingBox = element.boundingBox.map((b) => {
+                            console.table(b)
+                            let bounding = {
+                                lat: b.coordinates[0],
+                                lon: b.coordinates[1],
+                            };
+                            console.table(bounding);
+                            return bounding;
+                        });
+                        console.table(newBoundingBox)
                         let newTrip = {
                             id: element._id,
                             start: {
@@ -71,6 +107,7 @@ class Trip {
                             distance: element.distance,
                             duration: element.duration,
                             overspeedsCount: element.overspeedsCount,
+                            boundingBox: newBoundingBox,
                         };
 
                         return newTrip;

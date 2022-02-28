@@ -6,7 +6,7 @@
     "scripts": {
         "test": "NODE_ENV=test ./node_modules/.bin/mocha --reporter spec src/**/*.test.js",
         "start": "NODE_ENV=production node src/main.js",
-        "prueba": "npm run test & npm start"
+        "dev": "nodemon src/main.js"
     },
     "repository": {
         "type": "git",
@@ -28,5 +28,7 @@
         "mongoose": "^5.13.2",
         "morgan": "^1.10.0"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    }
 }
