@@ -31,7 +31,7 @@ app.use("/api/trips/v1", controllers.trips);
 function start() {
     return new Promise((resolve, reject) => {
         let port = (process.env.NODE_ENV == "test") ? HTTP_PORT_TEST : HTTP_PORT;
-        server.listen(HTTP_PORT, async(err) => {
+        server.listen(port, async(err) => {
             if (err) return reject(err);
             console.log(`server listener running: http://localhost:${port}`);
             await db.init();

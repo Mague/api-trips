@@ -22,9 +22,6 @@ describe('trips', () => {
                 expect(res).to.be.json;
                 expect(res.body).to.be.a("array");
                 expect(res.body).to.be.a("array").length(0);
-                // expect(res.body.data).to.have.length(0)
-                //close();
-                //done();
             }).catch((err) => {
                 //close();
                 throw err;
@@ -129,7 +126,71 @@ describe('trips', () => {
             expect(res).to.have.status(201);
             expect(res.body).to.be.a("object");
             expect(res.body).to.be.a("array").length(1);
-            //expect(res.body.status).to.equal("0"); 
         })
     })
+    it("it must fail to create a new trip because it does not meet the minimum number of readings.", () => {
+        let data = {
+            readings: [{
+                    time: 1642500462000,
+                    speed: 9,
+                    speedLimit: 38,
+                    location: {
+                        lat: -33.580158,
+                        lon: -70.567227,
+                    },
+                },
+                {
+                    time: 1642500466000,
+                    speed: 26,
+                    speedLimit: 38,
+                    location: {
+                        lat: -33.58013,
+                        lon: -70.566995,
+                    },
+                },
+                {
+                    time: 1642500470000,
+                    speed: 28,
+                    speedLimit: 38,
+                    location: {
+                        lat: -33.580117,
+                        lon: -70.566633,
+                    },
+                },
+                {
+                    time: 1642500474000,
+                    speed: 13,
+                    speedLimit: 38,
+                    location: {
+                        lat: -33.580078,
+                        lon: -70.566408,
+                    },
+                }
+            ],
+        };
+        chai
+            .request(app)
+            .post("/api/trips/v1")
+            .send(data)
+            .then((res) => {
+                expect(res).to.have.status(409);
+                expect(res.body).to.be.a("object");
+            });
+    });
+
+    it("should return list of trips filter by start_lte time", () => {
+        chai
+            .request(app)
+            .get("/api/trips/v1?start_lte=1642500462000")
+            .then((res) => {
+                expect(res).to.have.status(200);
+                expect(res).to.be.json;
+                expect(res.body).to.be.a("array");
+                expect(res.body).to.be.a("array").length(1);
+            })
+            .catch((err) => {
+                //close();
+                throw err;
+            });
+    });
 })

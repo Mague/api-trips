@@ -46,7 +46,7 @@ api.post("/", async(req, res) => {
     }
     let overspeedsCount = 0;
     readings.map((element, index) => {
-        console.log(`Speed: ${element.speed}, speedLimit:${element.speedLimit}`)
+        //console.log(`Speed: ${element.speed}, speedLimit:${element.speedLimit}`)
         if (element.speed >= element.speedLimit) {
             if (index == 0) {
                 overspeedsCount += 1;

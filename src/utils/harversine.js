@@ -20,16 +20,6 @@ const distanceKm = function(pointA, pointB) {
         }
     })
 }
-console.log("Eu");
-console.log(
-    distanceKm({
-        lat: -33.580158,
-        lon: -70.567227,
-    }, {
-        lat: -33.580053,
-        lon: -70.568502,
-    })
-);
 
 /**
  * Convierte grados a radianes.
@@ -66,7 +56,7 @@ function getDistanceBetweenPoints(lat1, lng1, lat2, lng2) {
 
     return distance;
 }
-console.log(getDistanceBetweenPoints(-33.580158, -70.567227, -33.580053, -70.568502));
+
 //console.log(getDistanceBetweenPoints(-33.580158, -70.567227, -33.580053, -70.568502));
 
 module.exports = {

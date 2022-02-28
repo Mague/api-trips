@@ -81,15 +81,15 @@ class Trip {
                     }
                     let data = docs.map((element) => {
                         let newBoundingBox = element.boundingBox.map((b) => {
-                            console.table(b)
+                            //console.table(b)
                             let bounding = {
                                 lat: b.coordinates[0],
                                 lon: b.coordinates[1],
                             };
-                            console.table(bounding);
+                            //console.table(bounding);
                             return bounding;
                         });
-                        console.table(newBoundingBox)
+                        //console.table(newBoundingBox)
                         let newTrip = {
                             id: element._id,
                             start: {
